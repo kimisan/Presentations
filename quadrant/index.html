@@ -44,16 +44,16 @@
 <div class="slides">
 <section>
     <h1>D3.js</h1>
-    <h3>Bike quandrant</h3>
+    <h3>Ｑuandrant</h3>
     <p>
-        <small>Created by <a href="http://hakim.se">Kimi Chen</a></small>
+        <small>Created by <a href="https://github.com/kimisan">Kimi Chen</a></small>
     </p>
 </section>
 
 <section>
-    <h2>Heads Up</h2>
+    <h2>D3.js之美</h2>
     <p>
-        D3.js is a framework for easily creating beautiful data visualization charts.
+        框架,藝術,圖表,視覺,動畫,溝通
     </p>
 
     <aside class="notes">
@@ -66,29 +66,31 @@
     <section>
         <h3>自行車使用者象限分析圖設計概念</h3>
         <ol>
-            <li>Who is it about?...</li>
-            <li>What happened?...</li>
-            <li>When did it take place?...</li>
+            <li>為何設計?...</li>
+            <li>如何設計?...</li>
+            <li>呈現結果?...</li>
         </ol>
 
 
     </section>
     <section>
-        <h2>Basement Level 1</h2>
-        <p>Press down or up to navigate.</p>
+        <h2>為何設計?...</h2>
+        <!--<p>Press down or up to navigate.</p> -->
     </section>
     <section>
-        <h2>Basement Level 2</h2>
+        <h2>如何設計?...</h2>
         <p>Cornify</p>
         <a class="test" href="http://cornify.com">
             <img width="280" height="326" src="https://s3.amazonaws.com/hakim-static/reveal-js/cornify.gif" alt="Unicorn">
         </a>
     </section>
     <section>
-        <h2>Basement Level 3</h2>
-        <p>That's it, time to go back up.</p>
+        <h2>呈現結果?...</h2>
+
+        <!--
         <a href="#/2" class="image">
             <img width="178" height="238" src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Up arrow" style="-webkit-transform: rotate(180deg);">
+        -->
         </a>
     </section>
 </section>
@@ -100,14 +102,14 @@
     </p>
 
     <pre><code data-trim contenteditable>
-      d3.csv(csv, function(data1) {
+      d3.csv(csv, function(data) {
     console.log(data);
 };
     </code></pre>
 </section>
 
 <section>
-    <h2>D3.js畫布建立</h2>
+    <h2>畫布建立</h2>
     <p>
         建立一固定長寬高之畫布
     </p>
@@ -121,9 +123,9 @@
 </section>
 
 <section>
-    <h2>D3.js縮放軸建立</h2>
+    <h2>線性縮放函數</h2>
     <p>
-        建立X,Y縮放軸
+        建立X,Y線性縮放函數
     </p>
 
     <pre><code data-trim contenteditable>
@@ -138,9 +140,9 @@ var y = d3.scale.linear()
 </section>
 
 <section>
-    <h2>D3.js X,Y軸建立</h2>
+    <h2>X,Y軸建立</h2>
     <p>
-        建立X,Y軸
+        建立X,Y軸,並使用前頁之線性縮放函數
     </p>
 
     <pre><code data-trim contenteditable>
@@ -181,14 +183,14 @@ svg.append('g')
 </section>
 
 <section>
-    <h2>D3.js 畫布添附g.circle</h2>
+    <h2>畫布添附circle群組</h2>
     <p>
-        append X,Y軸到畫布上
+        畫布新增一circle群組, 主要用來統一管理所有circles
     </p>
 
     <pre><code data-trim contenteditable>
     var circle1 = svg.selectAll("g.circle1")
-                        .data(data1)
+                        .data(data)
                         .enter()
                         .append("g")
                         .attr("class", "circle1");
@@ -198,14 +200,14 @@ svg.append('g')
 </section>
 
 <section>
-    <h2>D3.js group添附circle</h2>
+    <h2>circle群組添附circles</h2>
     <p>
-        append X,Y軸到畫布上
+        將circles添附到circle群組裡
     </p>
 
     <pre><code data-trim contenteditable>
     circle1.append("circle")
-    .data(data1)
+    .data(data)
     .style('fill', function (d) {
         return d.color;
     })
@@ -221,7 +223,7 @@ svg.append('g')
 <section>
     <h2>circle添附url</h2>
     <p>
-        append X,Y軸到畫布上
+        點選前往新網址
     </p>
 
     <pre><code data-trim contenteditable>
@@ -234,26 +236,11 @@ svg.append('g')
     </code></pre>
 </section>
 
-<section>
-    <h2>circle添附url</h2>
-    <p>
-        append X,Y軸到畫布上
-    </p>
-
-    <pre><code data-trim contenteditable>
-    circle1
-    .on("click", function (d) {
-        //url = "https://google.com
-        url = d.url;
-        window.location = url;
-    })
-    </code></pre>
-</section>
 
 <section>
     <h2>circle添附text</h2>
     <p>
-        append X,Y軸到畫布上
+        在circle下放置text tooltip
     </p>
 
     <pre><code data-trim contenteditable>
@@ -292,7 +279,7 @@ svg.append('g')
         <li><a href="http://www.meetup.com/Taipei-D3-js-Meetup/">Taipei D3.js meetup</a></li>
         <li><a href="http://goo.gl/1qR7za">D3.js Meetup 分享日程表</a></li>
         <li>eMail : d3.meetup@gmail.com</li>
-        <li><a href="https://github.com/kimisan">Github : Kimi</a></li>
+        <li><a href="https://github.com/kimisan">Presentations</a></li>
 
 
     </ul>
