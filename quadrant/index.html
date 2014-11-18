@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>reveal.js - The HTML Presentation Framework</title>
+
+    <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+    <meta name="author" content="Hakim El Hattab">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+        if( window.location.search.match( /print-pdf/gi ) ) {
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = 'css/print/pdf.css';
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        }
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<div class="reveal">
+
+<!-- Any section element inside of this container is displayed as a slide -->
+<div class="slides">
+<section>
+    <h1>D3.js</h1>
+    <h3>Bike quandrant</h3>
+    <p>
+        <small>Created by <a href="http://hakim.se">Kimi Chen</a></small>
+    </p>
+</section>
+
+<section>
+    <h2>Heads Up</h2>
+    <p>
+        D3.js is a framework for easily creating beautiful data visualization charts.
+    </p>
+
+    <aside class="notes">
+        Oh hey, these are some notes. They'll be hidden in your presentation, but you can see them if you open the speaker notes window (hit 's' on your keyboard).
+    </aside>
+</section>
+
+<!-- Example of nested vertical slides -->
+<section>
+    <section>
+        <h3>自行車使用者象限分析圖設計概念</h3>
+        <ol>
+            <li>Who is it about?...</li>
+            <li>What happened?...</li>
+            <li>When did it take place?...</li>
+        </ol>
+
+
+    </section>
+    <section>
+        <h2>Basement Level 1</h2>
+        <p>Press down or up to navigate.</p>
+    </section>
+    <section>
+        <h2>Basement Level 2</h2>
+        <p>Cornify</p>
+        <a class="test" href="http://cornify.com">
+            <img width="280" height="326" src="https://s3.amazonaws.com/hakim-static/reveal-js/cornify.gif" alt="Unicorn">
+        </a>
+    </section>
+    <section>
+        <h2>Basement Level 3</h2>
+        <p>That's it, time to go back up.</p>
+        <a href="#/2" class="image">
+            <img width="178" height="238" src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Up arrow" style="-webkit-transform: rotate(180deg);">
+        </a>
+    </section>
+</section>
+
+<section>
+    <h2>數據處理與載入</h2>
+    <p>
+        使用D3的CSV模組處理與載入數據
+    </p>
+
+    <pre><code data-trim contenteditable>
+      d3.csv(csv, function(data1) {
+    console.log(data);
+};
+    </code></pre>
+</section>
+
+<section>
+    <h2>D3.js畫布建立</h2>
+    <p>
+        建立一固定長寬高之畫布
+    </p>
+
+    <pre><code data-trim contenteditable>
+        var svg = d3.select("#graph").append("svg")
+        .attr("width", width)
+        .attr("height", height);
+};
+    </code></pre>
+</section>
+
+<section>
+    <h2>D3.js縮放軸建立</h2>
+    <p>
+        建立X,Y縮放軸
+    </p>
+
+    <pre><code data-trim contenteditable>
+        var x = d3.scale.linear()
+    .domain([-max_domoin_X, max_domoin_X])
+    .range([svg_left_margin, width - margin]);
+
+var y = d3.scale.linear()
+    .domain([-max_domoin_Y, max_domoin_Y])
+    .range([height - margin, margin]);
+    </code></pre>
+</section>
+
+<section>
+    <h2>D3.js X,Y軸建立</h2>
+    <p>
+        建立X,Y軸
+    </p>
+
+    <pre><code data-trim contenteditable>
+       var axis = d3.svg.axis()
+    .scale(x)
+    .ticks(max_domoin_X*2)
+    .tickFormat(function(d) { return xlabel[d+max_domoin_X] });
+var yaxis = d3.svg.axis()
+    .orient('left')
+    .ticks(max_domoin_Y*2)
+    .tickFormat(function(d) { return ylabel[d+max_domoin_Y] })
+    .scale(y);
+    </code></pre>
+</section>
+
+<section>
+    <h2>D3.js append X,Y軸</h2>
+    <p>
+        append X,Y軸到畫布上
+    </p>
+
+    <pre><code data-trim contenteditable>
+    svg.append('g')
+    .attr('transform', "translate(0, +"+(height-margin)+")")
+    .attr("class", "xaxis")
+    .call(axis)
+    .selectAll("text")
+    .attr("transform", function(d) {
+        return "rotate("+x_axis_label_rotate+")"
+    });
+
+svg.append('g')
+    .attr('transform', 'translate('+svg_left_margin+', 0)')
+    .attr("class", "yaxis")
+    .call(yaxis);
+
+    </code></pre>
+</section>
+
+<section>
+    <h2>D3.js 畫布添附g.circle</h2>
+    <p>
+        append X,Y軸到畫布上
+    </p>
+
+    <pre><code data-trim contenteditable>
+    var circle1 = svg.selectAll("g.circle1")
+                        .data(data1)
+                        .enter()
+                        .append("g")
+                        .attr("class", "circle1");
+
+
+    </code></pre>
+</section>
+
+<section>
+    <h2>D3.js group添附circle</h2>
+    <p>
+        append X,Y軸到畫布上
+    </p>
+
+    <pre><code data-trim contenteditable>
+    circle1.append("circle")
+    .data(data1)
+    .style('fill', function (d) {
+        return d.color;
+    })
+    .attr("r", function (d) {
+        return d.value / 100000;
+    })
+    .style("stroke", function (d) {
+        return d.color;
+    })
+    </code></pre>
+</section>
+
+<section>
+    <h2>circle添附url</h2>
+    <p>
+        append X,Y軸到畫布上
+    </p>
+
+    <pre><code data-trim contenteditable>
+    circle1
+    .on("click", function (d) {
+        //url = "https://google.com
+        url = d.url;
+        window.location = url;
+    })
+    </code></pre>
+</section>
+
+<section>
+    <h2>circle添附url</h2>
+    <p>
+        append X,Y軸到畫布上
+    </p>
+
+    <pre><code data-trim contenteditable>
+    circle1
+    .on("click", function (d) {
+        //url = "https://google.com
+        url = d.url;
+        window.location = url;
+    })
+    </code></pre>
+</section>
+
+<section>
+    <h2>circle添附text</h2>
+    <p>
+        append X,Y軸到畫布上
+    </p>
+
+    <pre><code data-trim contenteditable>
+    circle1.append("text")
+
+                        .attr("x", function (d) {
+                            return x(d.x);
+                        })
+                        .attr("y", function (d) {
+                            return y(d.y) - 50;
+                        })
+                        .attr("dy", "1.25em")
+                        .style('opacity', 0.0)
+                        .attr("text-anchor", "middle")
+                        .style('fill', 'red')
+                        .attr("pointer-events", "none")
+                        .attr("class", "tooltip_label")
+                        .text(function (d) {
+                            return d.label;
+                        });
+    </code></pre>
+</section>
+
+<section data-background="pic/example.png">
+    <h2>View</h2>
+
+
+
+</section>
+
+
+
+<section>
+    <h2>Taipei D3.js meetup Links</h2>
+    <ul>
+        <li><a href="http://www.meetup.com/Taipei-D3-js-Meetup/">Taipei D3.js meetup</a></li>
+        <li><a href="http://goo.gl/1qR7za">D3.js Meetup 分享日程表</a></li>
+        <li>eMail : d3.meetup@gmail.com</li>
+        <li><a href="https://github.com/kimisan">Github : Kimi</a></li>
+
+
+    </ul>
+</section>
+
+<section>
+    <h1>THE END</h1>
+    <h3>BY Kimi Chen</h3>
+</section>
+
+</div>
+
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.min.js"></script>
+
+<script>
+
+    // Full list of configuration options available here:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Parallax scrolling
+        // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+        // parallaxBackgroundSize: '2100px 900px',
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+            { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+            { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+            { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+            { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+    });
+
+</script>
+
+</body>
+</html>
