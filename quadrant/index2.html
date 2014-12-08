@@ -1,0 +1,2559 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>reveal.js - The HTML Presentation Framework</title>
+
+    <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+    <meta name="author" content="Hakim El Hattab">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+        if( window.location.search.match( /print-pdf/gi ) ) {
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = 'css/print/pdf.css';
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        }
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <script src="js/d3.js" charset="utf-8"></script>
+    <script src="js/tinycolor.js"></script>
+
+
+</head>
+
+<body>
+
+<div class="reveal">
+
+<!-- Any section element inside of this container is displayed as a slide -->
+<div class="slides">
+<section>
+    <h1>D3.js</h1>
+    <h3>Ｑuandrant</h3>
+    <p>
+        <small>Created by <a href="https://github.com/kimisan">Kimi Chen</a></small>
+    </p>
+</section>
+
+<section>
+    <h2>D3.js之美</h2>
+    <p>
+        藝術,圖表,視覺,動畫,溝通
+    </p>
+
+    <aside class="notes">
+        Oh hey, these are some notes. They'll be hidden in your presentation, but you can see them if you open the speaker notes window (hit 's' on your keyboard).
+    </aside>
+</section>
+
+<!-- Example of nested vertical slides -->
+<section>
+    <section>
+        <h2>小故事?...</h2>
+    </section>
+    <section data-background="./img/SuHua.jpg">
+        <h3>花東自行車之旅...</h3>
+    </section>
+
+    <section>
+        <h2></h2>
+        <h2>了解各個自行車道之特性...</h2>
+    </section>
+
+    <section>
+        <h3>長度</h3>
+        <h3>時間</h3>
+        <h3>坡度差</h3>
+        <h3>路況</h3>
+        <img src="img/lake.png">
+        <a href="http://www.erv-nsa.gov.tw/bicycle/bycArt1.aspx?SNo=03003254&eq=0">來源網址 : 鯉魚潭自行車道(環潭及原住民文化之旅)</a>
+    </section>
+
+    <section>
+
+        <table class="reveal">
+            <tr>
+                <td>自行車道</td>
+                <td>海拔差(m)</td>
+                <td>距離(km)</td>
+                <td>所需時間(hr)</td>
+            </tr>
+            <tr>
+                <td>鯉魚潭</td>
+                <td>31.3</td>
+                <td>5.2</td>
+                <td>0.5</td>
+            </tr>
+            <tr>
+                <td>光復</td>
+                <td>39</td>
+                <td>15.9</td>
+                <td>1.5</td>
+            </tr>
+            <tr>
+                <td>瑞穗</td>
+                <td>64.9</td>
+                <td>11.3</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>鹿野龍田</td>
+                <td>356.7</td>
+                <td>20.2</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td>玉富</td>
+                <td>11.2</td>
+                <td>5.6</td>
+                <td>0.5</td>
+            </tr>
+            <tr>
+                <td>池上</td>
+                <td>21.4</td>
+                <td>17.4</td>
+                <td>1.5</td>
+            </tr>
+            <tr>
+                <td>關山</td>
+                <td>45.7</td>
+                <td>15.2</td>
+                <td>1.5</td>
+            </tr>
+            <tr>
+                <td>兩潭</td>
+                <td>137</td>
+                <td>36</td>
+                <td>3.5</td>
+            </tr>
+            <tr>
+                <td>羅山</td>
+                <td>173.1</td>
+                <td>10.8</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>瑞北-富源舊鐵道</td>
+                <td>63</td>
+                <td>9.7</td>
+                <td>1</td>
+            </tr>
+
+        </table>
+        <p></p>
+        <font color="#ffd700"><p>-->存成data.csv</p></font>
+
+    </section>
+
+
+    <section>
+        <h2>呈現結果?...</h2>
+    </section>
+
+</section>
+
+<section>
+    <h2>D3簡介</h2>
+    <p>
+        D3可以把資料視覺化, 經由 HTML, SVG and CSS.
+    </p>
+    <p>
+        或是把資料轉換成可以互動的圖表和動畫.
+    </p>
+
+
+</section>
+
+<section>
+    <section>
+        <h2>D3安裝與使用</h2>
+    </section>
+    <section>
+        <h2>1.網頁直接載入</h2>
+          <pre><code data-trim>
+
+
+
+          </code></pre>
+    </section>
+    <section>
+        <h2>2.npm安裝</h2>
+
+          <pre><code data-trim>
+              $ npm install d3
+          </code></pre>
+        <pre><code data-trim>
+            var d3 = require("d3");
+        </code></pre>
+    </section>
+
+
+</section>
+
+
+<section>
+    <section>
+        <h2>數據處理與載入</h2>
+        <p>
+            數據圖＋圈圈中的數據資料
+        </p>
+
+    <pre><code data-trim contenteditable>
+        d3.csv('./data.csv', function(data) {
+        console.log(data);
+        };
+    </code></pre>
+
+
+    </section>
+    <section>
+        <img src="img/rawdata.png">
+    </section>
+</section>
+
+<section>
+    <h2>SVG畫布簡介</h2>
+
+</section>
+
+<section>
+
+    <section>
+        <h2>網頁增加一DIV標籤</h2>
+
+        <pre><code data-trim contenteditable>
+            <div id="graph" style="width: 900px; height: 480px;"></div>
+        </code></pre>
+
+    </section>
+
+    <section>
+        <h2>SVG畫布建立</h2>
+
+    </section>
+
+    <section>
+        <p>
+            建立一固定長寬高之畫布
+        </p>
+
+    <pre><code data-trim contenteditable>
+        var svg = d3.select("#graph").append("svg")
+        .attr("width", width)
+        .attr("height", height);
+        };
+    </code></pre>
+    </section>
+
+    <section>
+        <img src="pic/svg_canvas.png">
+
+    </section>
+
+</section>
+
+
+<section>
+
+    <section>
+        <h2>D3比例尺簡介</h2>
+
+        <svg id="aaa"></svg>
+        <script>
+
+
+
+            var svg = d3.select("#aaa")
+                    .attr("width", 700)
+                    .attr("height",500);
+
+            var group = svg.selectAll("g")
+                    .data([10,20,30,40,90,100])
+                    .enter()
+                    .append("g")
+                    .attr("transform", "translate(0,50)");
+
+            var linearScale = d3.scale.linear()
+                    .domain([0,100])
+                    .range([0,600]);
+
+            group.append("rect")
+                    .attr("width", function(d){
+                        return linearScale(d);
+                    })
+                    .attr("height", 30)
+                    .attr("x", 0)
+                    .attr("y", function(d,i){
+                        return i*40 ;
+                    })
+                    .style("fill", function(d) { return "white"; });
+
+            group.append("text")
+                    .attr("x", function(d){
+                        return linearScale(d);
+                    })
+                    .attr("y", function(d,i){
+                        return i*40 ;
+                    })
+                    .attr("dy", +30)
+                    .text( function (d) { return d+"%"; })
+
+        </script>
+    </section>
+
+    <section>
+        <h2>D3比例尺簡介</h2>
+
+        <svg id="aaa2"></svg>
+        <script>
+
+
+
+            var svg = d3.select("#aaa2")
+                    .attr("width", 700)
+                    .attr("height",500);
+
+            var group = svg.selectAll("g")
+                    .data([100,20])
+                    .enter()
+                    .append("g")
+                    .attr("transform", "translate(0,50)");
+
+            var linearScale = d3.scale.linear()
+                    .domain([0,100])
+                    .range([0,600]);
+
+            group.append("rect")
+                    .attr("width", function(d){
+                        return linearScale(d);
+                    })
+                    .attr("height", 30)
+                //.attr("x", 0)
+                    .attr("y", function(d,i){
+                        return i*150 ;
+                    })
+                    .style("fill", function(d) { return "white"; });
+
+            group.append("text")
+                    .attr("x", function(d){
+                        return linearScale(d);
+                    })
+                    .attr("y", function(d,i){
+                        return i*150 ;
+                    })
+                    .attr("dy", +30)
+                    .text( function (d) { return d+"%"; });
+
+            group.append("line")
+                    .attr("x1", 0)
+                    .attr("y1", 30)
+                    .attr("x2", 0)
+                    .attr("y2", 150+0)
+                    .attr("stroke-width", 10)
+                    .attr("stroke", "red");
+
+            group.append("line")
+                    .attr("x1", 600)
+                    .attr("y1", 30)
+                    .attr("x2", 120)
+                    .attr("y2", 150+0)
+                    .attr("stroke-width", 5)
+                    .attr("stroke", "red");
+
+        </script>
+    </section>
+
+    <section>
+
+    <pre><code data-trim contenteditable>
+
+        var svg = d3.select("#aaa")
+        .attr("width", 700)
+        .attr("height",500);
+
+        var group = svg.selectAll("g")
+        .data([10,20,30,40,90,100])
+        .enter()
+        .append("g")
+        .attr("transform", "translate(0,50)");
+
+        var linearScale = d3.scale.linear()
+        .domain([0,100])
+        .range([0,600]);
+
+
+
+    </code></pre>
+
+
+    </section>
+
+    <section>
+        <pre><code data-trim contenteditable>
+            group.append("rect")
+            .attr("width", function(d){
+            return linearScale(d);
+            })
+            .attr("height", 30)
+            .attr("x", 0)
+            .attr("y", function(d,i){
+            return i*40 ;
+            })
+            .style("fill", function(d) { return "white"; });
+            group.append("text")
+            .attr("x", function(d){
+            return linearScale(d);
+            })
+            .attr("y", function(d,i){
+            return i*40 ;
+            })
+            .attr("dy", +30)
+            .text( function (d) { return d+"%"; })
+        </code></pre>
+    </section>
+
+
+</section>
+
+<section>
+    <h2>線性縮放函數</h2>
+    <p>
+        放縮圖
+    </p>
+
+    <pre><code data-trim contenteditable>
+        var x = d3.scale.linear()
+        .domain([-max_domoin_X, max_domoin_X])
+        .range([svg_left_margin, width - margin]);
+
+        var y = d3.scale.linear()
+        .domain([-max_domoin_Y, max_domoin_Y])
+        .range([height - margin, margin]);
+    </code></pre>
+</section>
+
+<section>
+
+    <section>
+        <h2>SVG畫布與group放置</h2>
+
+    </section>
+
+    <section>
+        <h2>SVG畫布放置</h2>
+        <svg id="aaa3"></svg>
+        <script>
+
+            var svg = d3.select("#aaa3")
+                    .attr("width", 700)
+                    .attr("height",500);
+
+            svg.append("rect")
+                    .attr("width", "100%")
+                    .attr("height", "100%")
+                    .attr("fill", "pink");
+
+            svg.append("text")
+                    .attr("x", 250)
+                    .attr("y", 250)
+                    .text( "SVG畫布");
+
+            var group = svg.selectAll("g")
+                    .data([100,20])
+                    .enter()
+                    .append("g")
+                    .attr("transform", "translate(0,50)");
+
+        </script>
+    </section>
+
+    <section>
+        <h2>SVG畫布放置</h2>
+
+       <pre><code data-trim contenteditable>
+
+
+
+           var svg = d3.select("#aaa3")
+           .attr("width", 700)
+           .attr("height",500);
+
+           svg.append("rect")
+           .attr("width", "100%")
+           .attr("height", "100%")
+           .attr("fill", "pink");
+
+           var group = svg.selectAll("g")
+           .data([100,20])
+           .enter()
+           .append("g")
+           .attr("transform", "translate(0,50)");
+
+
+
+       </code></pre>
+    </section>
+
+    <section>
+        <h2>Group放置</h2>
+        <svg id="aaa4"></svg>
+        <script>
+
+
+
+            var svg = d3.select("#aaa4")
+                    .attr("width", 700)
+                    .attr("height",500);
+
+            svg.append("rect")
+                    .attr("width", "100%")
+                    .attr("height", "100%")
+                    .attr("fill", "pink");
+
+            svg.append("text")
+                    .attr("x", 250)
+                    .attr("y", 150)
+                    .text( "SVG畫布");
+
+            var group = svg.selectAll("g")
+                    .data([100,20])
+                    .enter()
+                    .append("g")
+                    .attr("transform", "translate(0,200)");
+
+            group.append("rect")
+                    .attr("width", "100%")
+                    .attr("height", "100%")
+                    .attr("fill", "red");
+
+            group.append("text")
+                    .attr("x", 250)
+                    .attr("y", 150)
+
+                    .text( "Group");
+
+
+
+        </script>
+    </section>
+
+    <section>
+        <h2>Group放置</h2>
+
+     <pre><code data-trim contenteditable>
+
+         var svg = d3.select("#aaa4")
+         .attr("width", 700)
+         .attr("height",500);
+
+         svg.append("rect")
+         .attr("width", "100%")
+         .attr("height", "100%")
+         .attr("fill", "pink");
+
+         svg.append("text")
+         .attr("x", 250)
+         .attr("y", 150)
+         .text( "SVG畫布");
+
+         var group = svg.selectAll("g")
+         .data([100,20])
+         .enter()
+         .append("g")
+         .attr("transform", "translate(0,200)");
+
+         group.append("rect")
+         .attr("width", "100%")
+         .attr("height", "100%")
+         .attr("fill", "red");
+
+         group.append("text")
+         .attr("x", 250)
+         .attr("y", 150)
+
+         .text( "Group");
+
+
+
+     </code></pre>
+    </section>
+
+
+
+</section>
+
+<section>
+
+<section>
+    <h2>X,Y軸建立</h2>
+    <svg id="aaa6"></svg>
+    <script>
+
+        var svg = d3.select("#aaa6")
+                .attr("width", 1000)
+                .attr("height", 600);
+
+        svg.append("rect")
+                .attr("width", "100%")
+                .attr("height", "100%")
+                .attr("fill", "pink");
+
+
+
+        var x = d3.scale.linear().domain([0, 10]).range([0, 800]);
+        var y = d3.scale.linear().domain([0, 10]).range([500, 50]);
+
+
+        if (0) {
+            // Draw X-axis grid lines
+            svg.selectAll("line.x")
+                    .data(x.ticks(1))
+                    .enter().append("line")
+                    .attr("class", "cross_x")
+                    .attr("x1", x)
+                    .attr("x2", x)
+                    .attr("y1", margin)
+                    .attr("y2", height - margin)
+                    .style("stroke", "#000")
+                    .style("opacity", 0.1)
+                    .style("stroke-width", "10px");
+
+            // Draw Y-axis grid lines
+            svg.selectAll("line.y")
+                    .data(y.ticks(1))
+                    .enter().append("line")
+                    .attr("class", "cross_y")
+                    .attr("x1", svg_left_margin)
+                    .attr("x2", width - margin)
+                    .attr("y1", y)
+                    .attr("y2", y)
+                    .style("stroke", "#000")
+                    .style("opacity", 0.1)
+                    .style("stroke-width", "10px");
+
+            svg.append("text")
+                    .attr("class", "x axis label")
+                //.attr("text-anchor", "end")
+                    .attr("x", (width - margin-svg_left_margin)*0.5+svg_left_margin)
+                    .attr("y", height - 6)
+                    .attr("text-anchor", "middle")
+                    .text("" + label_x + "");
+
+            svg.append("text")
+                    .attr("class", "y axis label")
+                    .attr("transform", "rotate(-90)")
+                    .attr("y", 0 - 0)
+                    .attr("x", 0 - (height / 2))
+                    .attr("dy", "1em")
+                    .text("" + label_y + "");
+        } // add cross line and 4 labels
+
+        xlabel=['0','1','2','3','4','5','6','7','8','9','10'];
+        ylabel=['','1','2','3','4','5','6','7','8','9','10'];
+
+        var axis = d3.svg.axis()
+                .scale(x)
+                .ticks(10)
+                .tickFormat(function(d) { return xlabel[d+0] });
+
+
+        var a = svg.append('g')
+                .attr('transform', "translate(100, +"+(500)+")")
+                .attr("class", "xaxis")
+                .call(axis)
+                .selectAll("text");
+
+
+        var yaxis = d3.svg.axis()
+                .orient('left')
+                .ticks(10)
+                .tickFormat(function(d) { return ylabel[d+0] })
+                .scale(y);
+
+        var ya = svg.append('g')
+                .attr('transform', 'translate('+100+', 0)')
+                .attr("class", "yaxis")
+                .call(yaxis);
+
+
+
+    </script>
+</section>
+<section>
+    <h2>程式碼</h2>
+            <pre><code data-trim contenteditable>
+
+                var svg = d3.select("#aaa6")
+                .attr("width", 1000)
+                .attr("height", 600);
+
+                svg.append("rect")
+                .attr("width", "100%")
+                .attr("height", "100%")
+                .attr("fill", "pink");
+
+                var x = d3.scale.linear().domain([0, 10]).range([0, 800]);
+                var y = d3.scale.linear().domain([0, 10]).range([500, 50]);
+
+                xlabel=['0','1','2','3','4','5','6','7','8','9','10'];
+                ylabel=['','1','2','3','4','5','6','7','8','9','10'];
+
+                var axis = d3.svg.axis()
+                .scale(x)
+                .ticks(10)
+                .tickFormat(function(d) { return xlabel[d+0] });
+
+
+                var a = svg.append('g')
+                .attr('transform', "translate(100, +"+(500)+")")
+                .attr("class", "xaxis")
+                .call(axis)
+                .selectAll("text");
+
+
+                var yaxis = d3.svg.axis()
+                .orient('left')
+                .ticks(10)
+                .tickFormat(function(d) { return ylabel[d+0] })
+                .scale(y);
+
+                var ya = svg.append('g')
+                .attr('transform', 'translate('+100+', 0)')
+                .attr("class", "yaxis")
+                .call(yaxis);
+
+
+
+            </code></pre>
+
+</section>
+<section>
+    <h2>X,Y軸建立</h2>
+    <svg id="a7"></svg>
+    <script>
+
+        var svg = d3.select("#a7")
+                .attr("width", 1000)
+                .attr("height", 600);
+
+        svg.append("rect")
+                .attr("width", "100%")
+                .attr("height", "100%")
+                .attr("fill", "pink");
+
+
+
+        var x = d3.scale.linear().domain([0, 10]).range([0, 800]);
+        var y = d3.scale.linear().domain([0, 10]).range([500, 50]);
+        label_x = 'Data1 類股';
+        label_y = 'Data1 漲幅'; //Y-Label
+
+        console.log(x.ticks(2)[1]);
+
+
+
+        margin = 50;
+        max_domoin_X = 10;
+        max_domoin_Y = 10;
+
+
+
+        xlabel=['0','1','2','3','4','5','6','7','8','9','10'];
+        ylabel=['','1','2','3','4','5','6','7','8','9','10'];
+
+        var axis = d3.svg.axis()
+                .scale(x)
+                .ticks(10)
+                .tickFormat(function(d) { return xlabel[d+0] });
+
+
+        var a = svg.append('g')
+                .attr('transform', "translate(100, +"+(500)+")")
+                .attr("class", "xaxis")
+                .call(axis)
+                .selectAll("text");
+
+
+        var yaxis = d3.svg.axis()
+                .orient('left')
+                .ticks(10)
+                .tickFormat(function(d) { return ylabel[d+0] })
+                .scale(y);
+
+        var ya = svg.append('g')
+                .attr('transform', 'translate('+100+', 0)')
+                .attr("class", "yaxis")
+                .call(yaxis);
+
+        ya.selectAll("line.y")
+                .data(y.ticks(max_domoin_Y * 1))
+                .enter().append("line")
+                .attr("class", "y")
+                .attr("x1", 0)
+                .attr("x2", 800)
+                .attr("y1", y)
+                .attr("y2", y)
+                .style("stroke", "#000")
+
+
+    </script>
+</section>
+<section>
+    <h2>程式碼</h2>
+      <pre><code data-trim contenteditable>
+          var ya = svg.append('g')
+          .attr('transform', 'translate('+100+', 0)')
+          .attr("class", "yaxis")
+          .call(yaxis);
+
+          ya.selectAll("line.y")
+          .data(y.ticks(max_domoin_Y * 1))
+          .enter().append("line")
+          .attr("class", "y")
+          .attr("x1", 0)
+          .attr("x2", 800)
+          .attr("y1", y)
+          .attr("y2", y)
+          .style("stroke", "#000")
+      </code></pre>
+</section>
+<section>
+    <h2>X,Y軸建立</h2>
+    <svg id="a8"></svg>
+    <script>
+
+        var svg = d3.select("#a8")
+                .attr("width", 1000)
+                .attr("height", 600);
+
+        svg.append("rect")
+                .attr("width", "100%")
+                .attr("height", "100%")
+                .attr("fill", "pink");
+
+
+
+        var x = d3.scale.linear().domain([0, 10]).range([0, 800]);
+        var y = d3.scale.linear().domain([0, 10]).range([500, 50]);
+        label_x = 'Data1 類股';
+        label_y = 'Data1 漲幅'; //Y-Label
+
+        console.log(x.ticks(2)[1]);
+
+
+
+        margin = 50;
+        max_domoin_X = 10;
+        max_domoin_Y = 10;
+
+
+
+        xlabel=['0','1','2','3','4','5','6','7','8','9','10'];
+        ylabel=['','1','2','3','4','5','6','7','8','9','10'];
+
+        var axis = d3.svg.axis()
+                .scale(x)
+                .ticks(10)
+                .tickFormat(function(d) { return xlabel[d+0] });
+
+        var xa = svg.append('g')
+                .attr('transform', "translate(100, +"+(500)+")")
+                .attr("class", "xaxis")
+                .call(axis);
+
+        xa.selectAll("line.x")
+                .data(x.ticks(max_domoin_X * 1))
+                .enter().append("line")
+                .attr("class", "x")
+                .attr("x1", x)
+                .attr("x2", x)
+                .attr("y1", -450)
+                .attr("y2", 0)
+                .style("stroke", "#000");
+
+
+        var yaxis = d3.svg.axis()
+                .orient('left')
+                .ticks(10)
+                .tickFormat(function(d) { return ylabel[d+0] })
+                .scale(y);
+
+        var ya = svg.append('g')
+                .attr('transform', 'translate('+100+', 0)')
+                .attr("class", "yaxis")
+                .call(yaxis);
+
+        ya.selectAll("line.y")
+                .data(y.ticks(max_domoin_Y * 1))
+                .enter().append("line")
+                .attr("class", "y")
+                .attr("x1", 0)
+                .attr("x2", 800)
+                .attr("y1", y)
+                .attr("y2", y)
+                .style("stroke", "#000")
+
+
+    </script>
+</section>
+<section>
+    <h2>Dsss</h2>
+    <pre><code data-trim contenteditable>
+        var axis = d3.svg.axis()
+        .scale(x)
+        .ticks(10)
+        .tickFormat(function(d) { return xlabel[d+0] });
+
+        var xa = svg.append('g')
+        .attr('transform', "translate(100, +"+(500)+")")
+        .attr("class", "xaxis")
+        .call(axis);
+
+        xa.selectAll("line.x")
+        .data(x.ticks(max_domoin_X * 1))
+        .enter().append("line")
+        .attr("class", "x")
+        .attr("x1", x)
+        .attr("x2", x)
+        .attr("y1", -450)
+        .attr("y2", 0)
+        .style("stroke", "#000");
+
+    </code></pre>
+</section>
+</section>
+
+<section>
+<section>
+    <h2>X,Y軸建立</h2>
+    <svg id="a9"></svg>
+    <script>
+
+        var svg = d3.select("#a9")
+                .attr("width", 1000)
+                .attr("height", 600);
+
+        svg.append("rect")
+                .attr("width", "100%")
+                .attr("height", "100%")
+                .attr("fill", "pink");
+
+
+
+        var x = d3.scale.linear().domain([0, 10]).range([0, 800]);
+        var y = d3.scale.linear().domain([0, 10]).range([500, 50]);
+        label_x = 'Data1 類股';
+        label_y = 'Data1 漲幅'; //Y-Label
+
+        console.log(x.ticks(2)[1]);
+
+
+
+        margin = 50;
+        max_domoin_X = 10;
+        max_domoin_Y = 10;
+
+
+
+        xlabel=['0','1','2','3','4','5','6','7','8','9','10'];
+        ylabel=['','1','2','3','4','5','6','7','8','9','10'];
+
+        var axis = d3.svg.axis()
+                .scale(x)
+                .ticks(10)
+                .tickFormat(function(d) { return xlabel[d+0] });
+
+        var xa = svg.append('g')
+                .attr('transform', "translate(100, +"+(500)+")")
+                .attr("class", "xaxis")
+                .call(axis);
+
+        xa.selectAll("line.x")
+                .data(x.ticks(max_domoin_X * 1))
+                .enter().append("line")
+                .attr("class", "x")
+                .attr("x1", x)
+                .attr("x2", x)
+                .attr("y1", -450)
+                .attr("y2", 0)
+                .style("stroke", "#000");
+
+
+        var yaxis = d3.svg.axis()
+                .orient('left')
+                .ticks(10)
+                .tickFormat(function(d) { return ylabel[d+0] })
+                .scale(y);
+
+        var ya = svg.append('g')
+                .attr('transform', 'translate('+100+', 0)')
+                .attr("class", "yaxis")
+                .call(yaxis);
+
+        ya.selectAll("line.y")
+                .data(y.ticks(max_domoin_Y * 1))
+                .enter().append("line")
+                .attr("class", "y")
+                .attr("x1", 0)
+                .attr("x2", 800)
+                .attr("y1", y)
+                .attr("y2", y)
+                .style("stroke", "#000");
+
+        svg.append("text")
+                .attr("class", "x axis label")
+            //.attr("text-anchor", "end")
+                .attr("x", (1000)*0.5+0)
+                .attr("y", 600 - 20)
+                .attr("text-anchor", "middle")
+                .text("X軸標簽");
+
+        svg.append("text")
+                .attr("class", "y axis label")
+                .attr("transform", "rotate(-90)")
+                .attr("y", 0 - 0)
+                .attr("x", 0 - (600 / 2))
+                .attr("dy", "1em")
+                .text("Y軸標簽");
+
+
+    </script>
+</section>
+
+<section>
+        <pre><code data-trim contenteditable>
+            svg.append("text")
+            .attr("class", "x axis label")
+            //.attr("text-anchor", "end")
+            .attr("x", (1000)*0.5+0)
+            .attr("y", 600 - 20)
+            .attr("text-anchor", "middle")
+            .text("X軸標簽");
+
+            svg.append("text")
+            .attr("class", "y axis label")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 0 - 0)
+            .attr("x", 0 - (600 / 2))
+            .attr("dy", "1em")
+            .text("Y軸標簽");
+        </code></pre>
+
+</section>
+
+<section>
+    <h2>X,Y軸建立</h2>
+    <svg id="a10"></svg>
+    <script>
+
+        var svg = d3.select("#a10")
+                .attr("width", 1000)
+                .attr("height", 600);
+
+        svg.append("rect")
+                .attr("width", "100%")
+                .attr("height", "100%")
+                .attr("fill", "pink");
+
+
+
+        var x = d3.scale.linear().domain([0, 10]).range([0, 800]);
+        var y = d3.scale.linear().domain([0, 10]).range([500, 50]);
+        label_x = 'Data1 類股';
+        label_y = 'Data1 漲幅'; //Y-Label
+
+        console.log(x.ticks(2)[1]);
+
+
+
+        margin = 50;
+        max_domoin_X = 10;
+        max_domoin_Y = 10;
+
+
+
+        xlabel=['0','1','2','3','4','5','6','7','8','9','10'];
+        ylabel=['','1','2','3','4','5','6','7','8','9','10'];
+
+        var axis = d3.svg.axis()
+                .scale(x)
+                .ticks(10)
+                .tickFormat(function(d) { return xlabel[d+0] });
+
+        var xa = svg.append('g')
+                .attr('transform', "translate(100, +"+(500)+")")
+                .attr("class", "xaxis")
+                .call(axis);
+
+        xa.selectAll("line.x")
+                .data(x.ticks(max_domoin_X * 1))
+                .enter().append("line")
+                .attr("class", "x")
+                .attr("x1", x)
+                .attr("x2", x)
+                .attr("y1", -450)
+                .attr("y2", 0)
+                .style("stroke", "#000");
+
+
+        var yaxis = d3.svg.axis()
+                .orient('left')
+                .ticks(10)
+                .tickFormat(function(d) { return ylabel[d+0] })
+                .scale(y);
+
+        var ya = svg.append('g')
+                .attr('transform', 'translate('+100+', 0)')
+                .attr("class", "yaxis")
+                .call(yaxis);
+
+        ya.selectAll("line.y")
+                .data(y.ticks(max_domoin_Y * 1))
+                .enter().append("line")
+                .attr("class", "y")
+                .attr("x1", 0)
+                .attr("x2", 800)
+                .attr("y1", y)
+                .attr("y2", y)
+                .style("stroke", "#000");
+
+        svg.append("text")
+                .attr("class", "x axis label")
+            //.attr("text-anchor", "end")
+                .attr("x", (1000)*0.5+0)
+                .attr("y", 600 - 20)
+                .attr("text-anchor", "middle")
+                .text("X軸標簽");
+
+        svg.append("text")
+                .attr("class", "y axis label")
+                .attr("transform", "rotate(-90)")
+                .attr("y", 0 - 0)
+                .attr("x", 0 - (600 / 2))
+                .attr("dy", "1em")
+                .text("Y軸標簽");
+
+        watermarking_LT = "Data1 左上";
+        watermarking_RT = "Data1 右上";
+        watermarking_LB = "Data1 左下";
+        watermarking_RB = "Data1 右下";
+
+        watermarking = svg.append("g")
+                .attr("class", "watermarking");
+
+        watermarking.append("text")
+                .attr("x", x(2.5))
+                .attr("y", y(7.5))
+                .attr("pointer-events", "none")
+                .style('opacity', 0.5)
+            //.attr("text-anchor", "middle")
+                .style("font-size", "40px")
+                .text(watermarking_LT);
+
+        watermarking.append("text")
+                .attr("x", x(7.5))
+                .attr("y", y(7.5))
+                .attr("pointer-events", "none")
+                .style('opacity', 0.5)
+            //.attr("text-anchor", "middle")
+                .style("font-size", "40px")
+                .text(watermarking_RT);
+
+        watermarking.append("text")
+                .attr("x", x(2.5))
+                .attr("y", y(2.5))
+                .attr("pointer-events", "none")
+                .style('opacity', 0.5)
+            //.attr("text-anchor", "middle")
+                .style("font-size", "40px")
+                .text(watermarking_LB);
+
+        watermarking.append("text")
+                .attr("x", x(7.5))
+                .attr("y", y(2.5))
+                .attr("pointer-events", "none")
+                .style('opacity', 0.5)
+            //.attr("text-anchor", "middle")
+                .style("font-size", "40px")
+                .text(watermarking_RB);
+
+
+    </script>
+</section>
+
+<section>
+    <h2>畫布添附circle群組</h2>
+    <pre><code data-trim contenteditable>
+        watermarking_LT = "Data1 左上";
+        watermarking_RT = "Data1 右上";
+        watermarking_LB = "Data1 左下";
+        watermarking_RB = "Data1 右下";
+
+        watermarking = svg.append("g")
+        .attr("class", "watermarking");
+
+        watermarking.append("text")
+        .attr("x", x(2.5))
+        .attr("y", y(7.5))
+        .attr("pointer-events", "none")
+        .style('opacity', 0.5)
+        //.attr("text-anchor", "middle")
+        .style("font-size", "40px")
+        .text(watermarking_LT);
+
+        watermarking.append("text")
+        .attr("x", x(7.5))
+        .attr("y", y(7.5))
+        .attr("pointer-events", "none")
+        .style('opacity', 0.5)
+        //.attr("text-anchor", "middle")
+        .style("font-size", "40px")
+        .text(watermarking_RT);
+
+        watermarking.append("text")
+        .attr("x", x(2.5))
+        .attr("y", y(2.5))
+        .attr("pointer-events", "none")
+        .style('opacity', 0.5)
+        //.attr("text-anchor", "middle")
+        .style("font-size", "40px")
+        .text(watermarking_LB);
+
+        watermarking.append("text")
+        .attr("x", x(7.5))
+        .attr("y", y(2.5))
+        .attr("pointer-events", "none")
+        .style('opacity', 0.5)
+        //.attr("text-anchor", "middle")
+        .style("font-size", "40px")
+        .text(watermarking_RB);
+    </code></pre>
+
+</section>
+
+
+
+</section>
+
+<section>
+    <section data-background="#b8860b">
+        <h2>畫布添附circle群組11</h2>
+        <svg id="a11"></svg>
+
+
+
+    </section>
+
+    <section data-background="#b8860b">
+        <h2>畫布添附circle群組</h2>
+        <svg id="a12"></svg>
+    </section>
+
+    <section data-background="#b8860b">
+        <h2>畫布添附circle群組</h2>
+        <svg id="a13"></svg>
+    </section>
+
+      <section data-background="#b8860b">
+        <h2>畫布添附circle群組</h2>
+        <svg id="a14"></svg>
+    </section>
+
+    <section data-background="#b8860b">
+        <h2>畫布添附circle群組</h2>
+        <svg id="a15"></svg>
+    </section>
+
+    <section data-background="#b8860b">
+        <h2>畫布添附circle群組</h2>
+        <svg id="a16"></svg>
+    </section>
+
+    <section data-background="#b8860b">
+        <h2>畫布添附circle群組</h2>
+        <svg id="a17"></svg>
+    </section>
+
+
+
+</section>
+
+<section>
+    <h2>circle群組添附circles</h2>
+    <p>
+        將circles添附到circle群組裡
+    </p>
+
+    <pre><code data-trim contenteditable>
+        circle1.append("circle")
+        .data(data)
+        .style('fill', function (d) {
+        return d.color;
+        })
+        .attr("r", function (d) {
+        return d.value / 100000;
+        })
+        .style("stroke", function (d) {
+        return d.color;
+        })
+    </code></pre>
+</section>
+
+<section>
+    <h2>circle添附url</h2>
+    <p>
+        點選前往新網址
+    </p>
+
+    <pre><code data-trim contenteditable>
+        circle1
+        .on("click", function (d) {
+        //url = "https://google.com
+        url = d.url;
+        window.location = url;
+        })
+    </code></pre>
+</section>
+
+
+<section>
+    <h2>circle添附text</h2>
+    <p>
+        在circle下放置text tooltip
+    </p>
+
+    <pre><code data-trim contenteditable>
+        circle1.append("text")
+
+        .attr("x", function (d) {
+        return x(d.x);
+        })
+        .attr("y", function (d) {
+        return y(d.y) - 50;
+        })
+        .attr("dy", "1.25em")
+        .style('opacity', 0.0)
+        .attr("text-anchor", "middle")
+        .style('fill', 'red')
+        .attr("pointer-events", "none")
+        .attr("class", "tooltip_label")
+        .text(function (d) {
+        return d.label;
+        });
+    </code></pre>
+</section>
+
+<section data-background="pic/example.png">
+    <h2>View</h2>
+
+
+
+</section>
+
+
+
+<section>
+    <h2>Taipei D3.js meetup Links</h2>
+    <ul>
+        <li><a href="http://www.meetup.com/Taipei-D3-js-Meetup/">Taipei D3.js meetup</a></li>
+        <li><a href="http://goo.gl/1qR7za">D3.js Meetup 分享日程表</a></li>
+        <li>eMail : d3.meetup@gmail.com</li>
+        <li><a href="https://github.com/kimisan">Presentations</a></li>
+
+
+    </ul>
+</section>
+
+<section>
+    <h1>THE END</h1>
+    <h3>BY Kimi Chen</h3>
+</section>
+
+</div>
+
+</div>
+
+<script>
+if(0) {
+    var svg = d3.select("#a11")
+            .attr("width", 1000)
+            .attr("height", 600);
+
+
+    var x = d3.scale.linear().domain([0, 40]).range([150, 800]);
+    var y = d3.scale.linear().domain([0, 400]).range([500, 50]);
+    label_x = 'Data1 類股';
+    label_y = 'Data1 漲幅'; //Y-Label
+
+    console.log(x.ticks(2)[1]);
+
+
+    margin = 50;
+    max_domoin_X = 10;
+    max_domoin_Y = 10;
+
+
+    //xlabel=['0','1','2','3','4'];
+    ylabel = ['', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+
+    var axis = d3.svg.axis()
+            .scale(x)
+            .orient("bottom")
+            .ticks(10);
+    //.tickFormat(function(d) { return xlabel[d+0] });
+
+    var xa = svg.append('g')
+            .attr('transform', "translate(0, +" + (500) + ")")
+            .attr("class", "xaxis")
+            .call(axis);
+
+    xa.selectAll("line.x")
+            .data(x.ticks(max_domoin_X * 1))
+            .enter().append("line")
+            .attr("class", "x")
+            .attr("x1", x)
+            .attr("x2", x)
+            .attr("y1", -450)
+            .attr("y2", 0)
+            .style("stroke", "#000");
+
+
+    var yaxis = d3.svg.axis()
+            .orient('left')
+            .ticks(10)
+        //.tickFormat(function(d) { return ylabel[d+0] })
+            .scale(y);
+
+    var ya = svg.append('g')
+            .attr('transform', 'translate(' + 150 + ', 0)')
+            .attr("class", "yaxis")
+            .call(yaxis);
+
+    ya.selectAll("line.y")
+            .data(y.ticks(max_domoin_Y * 1))
+            .enter().append("line")
+            .attr("class", "y")
+            .attr("x1", 0)
+            .attr("x2", 650)
+            .attr("y1", y)
+            .attr("y2", y)
+            .style("stroke", "#000");
+
+    svg.append("text")
+            .attr("class", "x axis label")
+        //.attr("text-anchor", "end")
+            .attr("x", (1000) * 0.5 + 0)
+            .attr("y", 600 - 20)
+            .attr("text-anchor", "middle")
+            .text("總騎乘距離(km)");
+
+    svg.append("text")
+            .attr("class", "y axis label")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 0 - 0)
+            .attr("x", 0 - (600 / 2))
+            .attr("dy", "1em")
+            .text("高低落差(m)");
+
+
+    d3.csv('./csv/data.csv', function (data1) {
+
+
+        if (1) {
+
+            var circle1 = svg.selectAll("g.circle1")
+                    .data(data1)
+                    .enter()
+                    .append("g")
+                    .attr("class", "circle1");
+
+            //Add a dot
+            circle1.append("circle")
+                    .data(data1)
+                    .attr("r", function (d) {
+                        return 10;
+                    })
+                    .style('fill', function (d) {
+                        return d.color;
+                    })
+                    .style('fill-opacity', 0.5)
+                    .style("stroke", function (d) {
+                        return d.color;
+                    })
+                    .attr("cx", function (d) {
+                        console.log(d.time);
+                        return x(d.km);
+                    })
+                    .attr("cy", function (d) {
+                        return y(d.height);
+                    });
+
+
+        } // add the circle1 and text
+    });
+
+
+}
+
+function waitPromise(param) {
+    return new Promise(function(resolve, reject) {
+
+        if(1) {
+            var svg = d3.select("#a11")
+                    .attr("width", 1000)
+                    .attr("height", 600);
+
+
+            var x = d3.scale.linear().domain([0, 40]).range([150, 800]);
+            var y = d3.scale.linear().domain([0, 400]).range([500, 50]);
+            label_x = 'Data1 類股';
+            label_y = 'Data1 漲幅'; //Y-Label
+
+            console.log(x.ticks(2)[1]);
+
+
+            margin = 50;
+            max_domoin_X = 10;
+            max_domoin_Y = 10;
+
+
+            //xlabel=['0','1','2','3','4'];
+            ylabel = ['', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+
+            var axis = d3.svg.axis()
+                    .scale(x)
+                    .orient("bottom")
+                    .ticks(10);
+            //.tickFormat(function(d) { return xlabel[d+0] });
+
+            var xa = svg.append('g')
+                    .attr('transform', "translate(0, +" + (500) + ")")
+                    .attr("class", "xaxis")
+                    .call(axis);
+
+            xa.selectAll("line.x")
+                    .data(x.ticks(max_domoin_X * 1))
+                    .enter().append("line")
+                    .attr("class", "x")
+                    .attr("x1", x)
+                    .attr("x2", x)
+                    .attr("y1", -450)
+                    .attr("y2", 0)
+                    .style("stroke", "#000");
+
+
+            var yaxis = d3.svg.axis()
+                    .orient('left')
+                    .ticks(10)
+                //.tickFormat(function(d) { return ylabel[d+0] })
+                    .scale(y);
+
+            var ya = svg.append('g')
+                    .attr('transform', 'translate(' + 150 + ', 0)')
+                    .attr("class", "yaxis")
+                    .call(yaxis);
+
+            ya.selectAll("line.y")
+                    .data(y.ticks(max_domoin_Y * 1))
+                    .enter().append("line")
+                    .attr("class", "y")
+                    .attr("x1", 0)
+                    .attr("x2", 650)
+                    .attr("y1", y)
+                    .attr("y2", y)
+                    .style("stroke", "#000");
+
+            svg.append("text")
+                    .attr("class", "x axis label")
+                //.attr("text-anchor", "end")
+                    .attr("x", (1000) * 0.5 + 0)
+                    .attr("y", 600 - 20)
+                    .attr("text-anchor", "middle")
+                    .text("總騎乘距離(km)");
+
+            svg.append("text")
+                    .attr("class", "y axis label")
+                    .attr("transform", "rotate(-90)")
+                    .attr("y", 0 - 0)
+                    .attr("x", 0 - (600 / 2))
+                    .attr("dy", "1em")
+                    .text("高低落差(m)");
+
+
+            d3.csv('./csv/data.csv', function (data1) {
+
+
+                if (1) {
+
+                    var circle1 = svg.selectAll("g.circle1")
+                            .data(data1)
+                            .enter()
+                            .append("g")
+                            .attr("class", "circle1");
+
+                    //Add a dot
+                    circle1.append("circle")
+                            .data(data1)
+                            .attr("r", function (d) {
+                                return 10;
+                            })
+                            .style('fill', function (d) {
+                                return d.color;
+                            })
+                            .style('fill-opacity', 0.5)
+                            .style("stroke", function (d) {
+                                return d.color;
+                            })
+                            .attr("cx", function (d) {
+                                console.log(d.time);
+                                return x(d.km);
+                            })
+                            .attr("cy", function (d) {
+                                return y(d.height);
+                            });
+
+
+                } // add the circle1 and text
+                resolve(param);
+            });
+
+
+        }
+        //resolve(param);
+
+        /*
+         setTimeout(function() {
+         resolve(param);
+         }, 2000 + (Math.random() - 0.5) * 1000);
+         */
+    });
+}
+
+function waitPromise2(param) {
+    return new Promise(function(resolve, reject) {
+
+        if(1) {
+            var svg = d3.select("#a12")
+                    .attr("width", 1000)
+                    .attr("height", 600);
+
+
+            var x = d3.scale.linear().domain([0, 40]).range([150, 800]);
+            var y = d3.scale.linear().domain([0, 400]).range([500, 50]);
+            label_x = 'Data1 類股';
+            label_y = 'Data1 漲幅'; //Y-Label
+
+            console.log(x.ticks(2)[1]);
+
+
+            margin = 50;
+            max_domoin_X = 10;
+            max_domoin_Y = 10;
+
+
+            //xlabel=['0','1','2','3','4'];
+            ylabel = ['', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+
+            var axis = d3.svg.axis()
+                    .scale(x)
+                    .orient("bottom")
+                    .ticks(10);
+            //.tickFormat(function(d) { return xlabel[d+0] });
+
+            var xa = svg.append('g')
+                    .attr('transform', "translate(0, +" + (500) + ")")
+                    .attr("class", "xaxis")
+                    .call(axis);
+
+            xa.selectAll("line.x")
+                    .data(x.ticks(max_domoin_X * 1))
+                    .enter().append("line")
+                    .attr("class", "x")
+                    .attr("x1", x)
+                    .attr("x2", x)
+                    .attr("y1", -450)
+                    .attr("y2", 0)
+                    .style("stroke", "#000");
+
+
+            var yaxis = d3.svg.axis()
+                    .orient('left')
+                    .ticks(10)
+                //.tickFormat(function(d) { return ylabel[d+0] })
+                    .scale(y);
+
+            var ya = svg.append('g')
+                    .attr('transform', 'translate(' + 150 + ', 0)')
+                    .attr("class", "yaxis")
+                    .call(yaxis);
+
+            ya.selectAll("line.y")
+                    .data(y.ticks(max_domoin_Y * 1))
+                    .enter().append("line")
+                    .attr("class", "y")
+                    .attr("x1", 0)
+                    .attr("x2", 650)
+                    .attr("y1", y)
+                    .attr("y2", y)
+                    .style("stroke", "#000");
+
+            svg.append("text")
+                    .attr("class", "x axis label")
+                //.attr("text-anchor", "end")
+                    .attr("x", (1000) * 0.5 + 0)
+                    .attr("y", 600 - 20)
+                    .attr("text-anchor", "middle")
+                    .text("總騎乘距離(km)");
+
+            svg.append("text")
+                    .attr("class", "y axis label")
+                    .attr("transform", "rotate(-90)")
+                    .attr("y", 0 - 0)
+                    .attr("x", 0 - (600 / 2))
+                    .attr("dy", "1em")
+                    .text("高低落差(m)");
+
+
+            d3.csv('./csv/data.csv', function (data1) {
+
+
+                if (1) {
+
+                    var circle1 = svg.selectAll("g.circle1")
+                            .data(data1)
+                            .enter()
+                            .append("g")
+                            .attr("class", "circle1");
+
+                    //Add a dot
+                    circle1.append("circle")
+                            .data(data1)
+                            .attr("r", function (d) {
+                                return 10;
+                            })
+                            .style('fill', function (d) {
+                                a3 = Math.floor(Math.random() * 306) + 1;
+                                a1 = tinycolor("hsv("+a3+", 100%, 100%)");
+                                a2 = a1.toHexString();
+                                return a2;
+                            })
+                            .style('fill-opacity', 0.5)
+                            .style("stroke", function (d) {
+                                return d.color;
+                            })
+                            .attr("cx", function (d) {
+                                console.log(d.time);
+                                return x(d.km);
+                            })
+                            .attr("cy", function (d) {
+                                return y(d.height);
+                            });
+
+
+                } // add the circle1 and text
+                resolve(param);
+            });
+
+
+        }
+        //resolve(param);
+
+        /*
+         setTimeout(function() {
+         resolve(param);
+         }, 2000 + (Math.random() - 0.5) * 1000);
+         */
+    });
+}
+
+function waitPromise3(param) {
+    return new Promise(function(resolve, reject) {
+
+        if(1) {
+            var svg = d3.select("#a13")
+                    .attr("width", 1000)
+                    .attr("height", 600);
+
+
+            var x = d3.scale.linear().domain([0, 40]).range([150, 800]);
+            var y = d3.scale.linear().domain([0, 400]).range([500, 50]);
+            label_x = 'Data1 類股';
+            label_y = 'Data1 漲幅'; //Y-Label
+
+            console.log(x.ticks(2)[1]);
+
+
+            margin = 50;
+            max_domoin_X = 10;
+            max_domoin_Y = 10;
+
+
+            //xlabel=['0','1','2','3','4'];
+            ylabel = ['', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+
+            var axis = d3.svg.axis()
+                    .scale(x)
+                    .orient("bottom")
+                    .ticks(10);
+            //.tickFormat(function(d) { return xlabel[d+0] });
+
+            var xa = svg.append('g')
+                    .attr('transform', "translate(0, +" + (500) + ")")
+                    .attr("class", "xaxis")
+                    .call(axis);
+
+            xa.selectAll("line.x")
+                    .data(x.ticks(max_domoin_X * 1))
+                    .enter().append("line")
+                    .attr("class", "x")
+                    .attr("x1", x)
+                    .attr("x2", x)
+                    .attr("y1", -450)
+                    .attr("y2", 0)
+                    .style("stroke", "#000");
+
+
+            var yaxis = d3.svg.axis()
+                    .orient('left')
+                    .ticks(10)
+                //.tickFormat(function(d) { return ylabel[d+0] })
+                    .scale(y);
+
+            var ya = svg.append('g')
+                    .attr('transform', 'translate(' + 150 + ', 0)')
+                    .attr("class", "yaxis")
+                    .call(yaxis);
+
+            ya.selectAll("line.y")
+                    .data(y.ticks(max_domoin_Y * 1))
+                    .enter().append("line")
+                    .attr("class", "y")
+                    .attr("x1", 0)
+                    .attr("x2", 650)
+                    .attr("y1", y)
+                    .attr("y2", y)
+                    .style("stroke", "#000");
+
+            svg.append("text")
+                    .attr("class", "x axis label")
+                //.attr("text-anchor", "end")
+                    .attr("x", (1000) * 0.5 + 0)
+                    .attr("y", 600 - 20)
+                    .attr("text-anchor", "middle")
+                    .text("總騎乘距離(km)");
+
+            svg.append("text")
+                    .attr("class", "y axis label")
+                    .attr("transform", "rotate(-90)")
+                    .attr("y", 0 - 0)
+                    .attr("x", 0 - (600 / 2))
+                    .attr("dy", "1em")
+                    .text("高低落差(m)");
+
+
+            d3.csv('./csv/data.csv', function (data1) {
+
+
+                if (1) {
+
+                    var circle1 = svg.selectAll("g.circle1")
+                            .data(data1)
+                            .enter()
+                            .append("g")
+                            .attr("class", "circle1");
+
+                    //Add a dot
+                    circle1.append("circle")
+                            .data(data1)
+                            .attr("r", function (d) {
+                                return d.time*10;
+                            })
+                            .style('fill', function (d) {
+                                a3 = Math.floor(Math.random() * 306) + 1;
+                                a1 = tinycolor("hsv("+a3+", 100%, 100%)");
+                                a2 = a1.toHexString();
+                                return a2;
+                            })
+                            .style('fill-opacity', 0.5)
+                            .style("stroke", function (d) {
+                                return d.color;
+                            })
+                            .attr("cx", function (d) {
+                                console.log(d.time);
+                                return x(d.km);
+                            })
+                            .attr("cy", function (d) {
+                                return y(d.height);
+                            });
+
+
+                } // add the circle1 and text
+                resolve(param);
+            });
+
+
+        }
+        //resolve(param);
+
+        /*
+         setTimeout(function() {
+         resolve(param);
+         }, 2000 + (Math.random() - 0.5) * 1000);
+         */
+    });
+}
+
+function waitPromise4(param) {
+    return new Promise(function(resolve, reject) {
+
+        if(1) {
+            var svg = d3.select("#a14")
+                    .attr("width", 1000)
+                    .attr("height", 600);
+
+
+            var x = d3.scale.linear().domain([0, 3000]).range([150, 800]);
+            var y = d3.scale.linear().domain([0, 3000]).range([500, 50]);
+            label_x = 'Data1 類股';
+            label_y = 'Data1 漲幅'; //Y-Label
+
+            console.log(x.ticks(2)[1]);
+
+
+            margin = 50;
+            max_domoin_X = 10;
+            max_domoin_Y = 10;
+
+
+            //xlabel=['0','1','2','3','4'];
+            ylabel = ['', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+
+            var axis = d3.svg.axis()
+                    .scale(x)
+                    .orient("bottom")
+                    .ticks(10);
+            //.tickFormat(function(d) { return xlabel[d+0] });
+
+            var xa = svg.append('g')
+                    .attr('transform', "translate(0, +" + (500) + ")")
+                    .attr("class", "xaxis")
+                    .call(axis);
+
+            xa.selectAll("line.x")
+                    .data(x.ticks(max_domoin_X * 1))
+                    .enter().append("line")
+                    .attr("class", "x")
+                    .attr("x1", x)
+                    .attr("x2", x)
+                    .attr("y1", -450)
+                    .attr("y2", 0)
+                    .style("stroke", "#000");
+
+
+            var yaxis = d3.svg.axis()
+                    .orient('left')
+                    .ticks(10)
+                //.tickFormat(function(d) { return ylabel[d+0] })
+                    .scale(y);
+
+            var ya = svg.append('g')
+                    .attr('transform', 'translate(' + 150 + ', 0)')
+                    .attr("class", "yaxis")
+                    .call(yaxis);
+
+            ya.selectAll("line.y")
+                    .data(y.ticks(max_domoin_Y * 1))
+                    .enter().append("line")
+                    .attr("class", "y")
+                    .attr("x1", 0)
+                    .attr("x2", 650)
+                    .attr("y1", y)
+                    .attr("y2", y)
+                    .style("stroke", "#000");
+
+            svg.append("text")
+                    .attr("class", "x axis label")
+                //.attr("text-anchor", "end")
+                    .attr("x", (1000) * 0.5 + 0)
+                    .attr("y", 600 - 20)
+                    .attr("text-anchor", "middle")
+                    .text("總騎乘距離(km)");
+
+            svg.append("text")
+                    .attr("class", "y axis label")
+                    .attr("transform", "rotate(-90)")
+                    .attr("y", 0 - 0)
+                    .attr("x", 0 - (600 / 2))
+                    .attr("dy", "1em")
+                    .text("高低落差(m)");
+
+
+            d3.csv('./csv/citybike_10k.csv', function (data1) {
+
+
+                if (1) {
+
+                    var circle1 = svg.selectAll("g.circle1")
+                            .data(data1)
+                            .enter()
+                            .append("g")
+                            .attr("class", "circle1");
+
+                    //Add a dot
+                    circle1.append("circle")
+                            .data(data1)
+                            .attr("r", function (d) {
+                                return 2;
+                            })
+                            .style('fill', function (d) {
+                                a3 = Math.floor(Math.random() * 306) + 1;
+                                a1 = tinycolor("hsv("+a3+", 100%, 100%)");
+                                a2 = a1.toHexString();
+                                return "black";
+                            })
+                            .style('fill-opacity', 0.3)
+
+                            .attr("cx", function (d) {
+                                //console.log(d.time);
+                                return x(d.start_station_id);
+                            })
+                            .attr("cy", function (d) {
+                                return y(d.end_station_id);
+                            });
+
+
+                } // add the circle1 and text
+                resolve(param);
+            });
+
+
+        }
+        //resolve(param);
+
+        /*
+         setTimeout(function() {
+         resolve(param);
+         }, 2000 + (Math.random() - 0.5) * 1000);
+         */
+    });
+}
+
+function waitPromise5(param) {
+    return new Promise(function(resolve, reject) {
+
+        if(1) {
+            var svg = d3.select("#a15")
+                    .attr("width", 1000)
+                    .attr("height", 600);
+
+
+            var x = d3.scale.linear().domain([0, 600]).range([150, 800]);
+            var y = d3.scale.linear().domain([0, 600]).range([500, 50]);
+            label_x = 'Data1 類股';
+            label_y = 'Data1 漲幅'; //Y-Label
+
+            console.log(x.ticks(2)[1]);
+
+
+            margin = 50;
+            max_domoin_X = 10;
+            max_domoin_Y = 10;
+
+
+            //xlabel=['0','1','2','3','4'];
+            ylabel = ['', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+
+            var axis = d3.svg.axis()
+                    .scale(x)
+                    .orient("bottom")
+                    .ticks(5);
+            //.tickFormat(function(d) { return xlabel[d+0] });
+
+            var xa = svg.append('g')
+                    .attr('transform', "translate(0, +" + (500) + ")")
+                    .attr("class", "xaxis")
+                    .call(axis);
+
+            xa.selectAll("line.x")
+                    .data(x.ticks(max_domoin_X * 1))
+                    .enter().append("line")
+                    .attr("class", "x")
+                    .attr("x1", x)
+                    .attr("x2", x)
+                    .attr("y1", -450)
+                    .attr("y2", 0)
+                    .style("stroke", "#000");
+
+
+            var yaxis = d3.svg.axis()
+                    .orient('left')
+                    .ticks(10)
+                //.tickFormat(function(d) { return ylabel[d+0] })
+                    .scale(y);
+
+            var ya = svg.append('g')
+                    .attr('transform', 'translate(' + 150 + ', 0)')
+                    .attr("class", "yaxis")
+                    .call(yaxis);
+
+            ya.selectAll("line.y")
+                    .data(y.ticks(max_domoin_Y * 1))
+                    .enter().append("line")
+                    .attr("class", "y")
+                    .attr("x1", 0)
+                    .attr("x2", 650)
+                    .attr("y1", y)
+                    .attr("y2", y)
+                    .style("stroke", "#000");
+
+            svg.append("text")
+                    .attr("class", "x axis label")
+                //.attr("text-anchor", "end")
+                    .attr("x", (1000) * 0.5 + 0)
+                    .attr("y", 600 - 20)
+                    .attr("text-anchor", "middle")
+                    .text("總騎乘距離(km)");
+
+            svg.append("text")
+                    .attr("class", "y axis label")
+                    .attr("transform", "rotate(-90)")
+                    .attr("y", 0 - 0)
+                    .attr("x", 0 - (600 / 2))
+                    .attr("dy", "1em")
+                    .text("高低落差(m)");
+
+
+            d3.csv('./csv/citybike_10k.csv', function (data1) {
+
+
+                if (1) {
+
+                    var circle1 = svg.selectAll("g.circle1")
+                            .data(data1)
+                            .enter()
+                            .append("g")
+                            .attr("class", "circle1");
+
+                    //Add a dot
+                    circle1.append("circle")
+                            .data(data1)
+                            .attr("r", function (d) {
+                                return 2;
+                            })
+                            .style('fill', function (d) {
+                                a3 = Math.floor(Math.random() * 306) + 1;
+                                a1 = tinycolor("hsv("+a3+", 100%, 100%)");
+                                a2 = a1.toHexString();
+                                return "black";
+                            })
+                            .style('fill-opacity', 0.3)
+                            .style("stroke", function (d) {
+                                return d.color;
+                            })
+                            .attr("cx", function (d) {
+                                //console.log(d.time);
+                                return x(d.start_station_id);
+                            })
+                            .attr("cy", function (d) {
+                                return y(d.end_station_id);
+                            });
+
+
+                } // add the circle1 and text
+                resolve(param);
+            });
+
+
+        }
+        //resolve(param);
+
+        /*
+         setTimeout(function() {
+         resolve(param);
+         }, 2000 + (Math.random() - 0.5) * 1000);
+         */
+    });
+}
+
+function waitPromise6(param) {
+    return new Promise(function(resolve, reject) {
+
+        if(1) {
+            var svg = d3.select("#a16")
+                    .attr("width", 1000)
+                    .attr("height", 600);
+
+
+            var x = d3.scale.linear().domain([0, 600]).range([150, 800]);
+            var y = d3.scale.linear().domain([0, 5000]).range([500, 50]);
+            label_x = 'Data1 類股';
+            label_y = 'Data1 漲幅'; //Y-Label
+
+            console.log(x.ticks(2)[1]);
+
+
+            margin = 50;
+            max_domoin_X = 10;
+            max_domoin_Y = 10;
+
+
+            //xlabel=['0','1','2','3','4'];
+            ylabel = ['', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+
+            var axis = d3.svg.axis()
+                    .scale(x)
+                    .orient("bottom")
+                    .ticks(5);
+            //.tickFormat(function(d) { return xlabel[d+0] });
+
+            var xa = svg.append('g')
+                    .attr('transform', "translate(0, +" + (500) + ")")
+                    .attr("class", "xaxis")
+                    .call(axis);
+
+            xa.selectAll("line.x")
+                    .data(x.ticks(max_domoin_X * 1))
+                    .enter().append("line")
+                    .attr("class", "x")
+                    .attr("x1", x)
+                    .attr("x2", x)
+                    .attr("y1", -450)
+                    .attr("y2", 0)
+                    .style("stroke", "#000");
+
+
+            var yaxis = d3.svg.axis()
+                    .orient('left')
+                    .ticks(10)
+                //.tickFormat(function(d) { return ylabel[d+0] })
+                    .scale(y);
+
+            var ya = svg.append('g')
+                    .attr('transform', 'translate(' + 150 + ', 0)')
+                    .attr("class", "yaxis")
+                    .call(yaxis);
+
+            ya.selectAll("line.y")
+                    .data(y.ticks(max_domoin_Y * 1))
+                    .enter().append("line")
+                    .attr("class", "y")
+                    .attr("x1", 0)
+                    .attr("x2", 650)
+                    .attr("y1", y)
+                    .attr("y2", y)
+                    .style("stroke", "#000");
+
+            svg.append("text")
+                    .attr("class", "x axis label")
+                //.attr("text-anchor", "end")
+                    .attr("x", (1000) * 0.5 + 0)
+                    .attr("y", 600 - 20)
+                    .attr("text-anchor", "middle")
+                    .text("總騎乘距離(km)");
+
+            svg.append("text")
+                    .attr("class", "y axis label")
+                    .attr("transform", "rotate(-90)")
+                    .attr("y", 0 - 0)
+                    .attr("x", 0 - (600 / 2))
+                    .attr("dy", "1em")
+                    .text("高低落差(m)");
+
+
+            d3.csv('./csv/citybike_10k.csv', function (data1) {
+
+
+                if (1) {
+
+                    var circle1 = svg.selectAll("g.circle1")
+                            .data(data1)
+                            .enter()
+                            .append("g")
+                            .attr("class", "circle1");
+
+                    //Add a dot
+                    circle1.append("circle")
+                            .data(data1)
+                            .attr("r", function (d) {
+                                return 2;
+                            })
+                            .style('fill', function (d) {
+                                a3 = Math.floor(Math.random() * 306) + 1;
+                                a1 = tinycolor("hsv("+a3+", 100%, 100%)");
+                                a2 = a1.toHexString();
+                                return "black";
+                            })
+                            .style('fill-opacity', 0.3)
+                            .style("stroke", function (d) {
+                                return d.color;
+                            })
+                            .attr("cx", function (d) {
+                                //console.log(d.time);
+                                return x(d.start_station_id);
+                            })
+                            .attr("cy", function (d) {
+                                return y(d.tripduration);
+                            });
+
+
+                } // add the circle1 and text
+                resolve(param);
+            });
+
+
+        }
+        //resolve(param);
+
+        /*
+         setTimeout(function() {
+         resolve(param);
+         }, 2000 + (Math.random() - 0.5) * 1000);
+         */
+    });
+}
+
+function waitPromise7(param) {
+    return new Promise(function(resolve, reject) {
+
+        if(1) {
+            var svg = d3.select("#a17")
+                    .attr("width", 1000)
+                    .attr("height", 600);
+
+
+            var x = d3.scale.linear().domain([0, 600]).range([150, 800]);
+            var y = d3.scale.linear().domain([0, 100]).range([500, 50]);
+            label_x = 'Data1 類股';
+            label_y = 'Data1 漲幅'; //Y-Label
+
+            console.log(x.ticks(2)[1]);
+
+
+            margin = 50;
+            max_domoin_X = 10;
+            max_domoin_Y = 10;
+
+
+            //xlabel=['0','1','2','3','4'];
+            ylabel = ['', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+
+            var axis = d3.svg.axis()
+                    .scale(x)
+                    .orient("bottom")
+                    .ticks(5);
+            //.tickFormat(function(d) { return xlabel[d+0] });
+
+            var xa = svg.append('g')
+                    .attr('transform', "translate(0, +" + (500) + ")")
+                    .attr("class", "xaxis")
+                    .call(axis);
+
+            xa.selectAll("line.x")
+                    .data(x.ticks(max_domoin_X * 1))
+                    .enter().append("line")
+                    .attr("class", "x")
+                    .attr("x1", x)
+                    .attr("x2", x)
+                    .attr("y1", -450)
+                    .attr("y2", 0)
+                    .style("stroke", "#000");
+
+
+            var yaxis = d3.svg.axis()
+                    .orient('left')
+                    .ticks(10)
+                //.tickFormat(function(d) { return ylabel[d+0] })
+                    .scale(y);
+
+            var ya = svg.append('g')
+                    .attr('transform', 'translate(' + 150 + ', 0)')
+                    .attr("class", "yaxis")
+                    .call(yaxis);
+
+            ya.selectAll("line.y")
+                    .data(y.ticks(max_domoin_Y * 1))
+                    .enter().append("line")
+                    .attr("class", "y")
+                    .attr("x1", 0)
+                    .attr("x2", 650)
+                    .attr("y1", y)
+                    .attr("y2", y)
+                    .style("stroke", "#000");
+
+            svg.append("text")
+                    .attr("class", "x axis label")
+                //.attr("text-anchor", "end")
+                    .attr("x", (1000) * 0.5 + 0)
+                    .attr("y", 600 - 20)
+                    .attr("text-anchor", "middle")
+                    .text("總騎乘距離(km)");
+
+            svg.append("text")
+                    .attr("class", "y axis label")
+                    .attr("transform", "rotate(-90)")
+                    .attr("y", 0 - 0)
+                    .attr("x", 0 - (600 / 2))
+                    .attr("dy", "1em")
+                    .text("高低落差(m)");
+
+
+            d3.csv('./csv/citybike_10k.csv', function (data1) {
+
+
+                if (1) {
+
+                    var circle1 = svg.selectAll("g.circle1")
+                            .data(data1)
+                            .enter()
+                            .append("g")
+                            .attr("class", "circle1");
+
+                    //Add a dot
+                    circle1.append("circle")
+                            .data(data1)
+                            .attr("r", function (d) {
+                                return 1.5;
+                            })
+                            .style('fill', function (d) {
+                                if (d.gender ==1){
+                                    return "green";
+                                }
+                                else{
+                                    return "red";
+                                }
+
+                            })
+                            .style('fill-opacity',function (d) {
+                                if (d.gender ==1 || d.gender==2){
+                                    return 1;
+                                }
+                                else{
+                                    return 0;
+                                }
+
+                            })
+                            .style("stroke", function (d) {
+                                return d.color;
+                            })
+                            .attr("cx", function (d) {
+                                //console.log(d.time);
+                                return x(d.start_station_id);
+                            })
+                            .attr("cy", function (d) {
+                                return y(2014-d.birth_year);
+                            });
+
+
+                } // add the circle1 and text
+                resolve(param);
+            });
+
+
+        }
+        //resolve(param);
+
+        /*
+         setTimeout(function() {
+         resolve(param);
+         }, 2000 + (Math.random() - 0.5) * 1000);
+         */
+    });
+}
+
+function waitPromise8(param) {
+    return new Promise(function(resolve, reject) {
+
+
+
+    });
+}
+
+waitPromise('如果你愿意').then(function(response) {
+    console.log(response);
+    return waitPromise2('一层')
+})
+.then(function(response) {
+    console.log(response);
+    return waitPromise3('一层')
+})
+.then(function(response) {
+    console.log(response);
+    return waitPromise4('一层')
+})
+.then(function(response) {
+    console.log(response);
+    return waitPromise5('一层')
+})
+.then(function(response) {
+    console.log(response);
+    return waitPromise6('一层')
+})
+.then(function(response) {
+    console.log(response);
+    return waitPromise7('一层')
+});
+
+</script>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.min.js"></script>
+
+
+<script>
+
+    // Full list of configuration options available here:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Parallax scrolling
+        // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+        // parallaxBackgroundSize: '2100px 900px',
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+            { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+            { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+            { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+            { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+    });
+
+
+
+</script>
+
+
+
+
+
+</body>
+</html>

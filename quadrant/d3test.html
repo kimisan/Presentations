@@ -1,0 +1,63 @@
+<html>
+
+<head>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/three.js/r69/three.js"></script>
+
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <style type="text/css">
+        body {
+            margin: 0px;
+            padding: 0px;
+        }
+        #container {
+            width:960px;
+            height:500px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div id="111"></div>
+
+<!--div id="container"></div-->
+<script>
+    // <!--
+
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
+
+
+
+    container = document.getElementById( '111' );
+    document.body.appendChild( container );
+
+    renderer = new THREE.WebGLRenderer();
+    renderer.setSize( 200, 200 );
+    container.appendChild( renderer.domElement );
+
+
+    var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+    var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+    var cube = new THREE.Mesh( geometry, material );
+    scene.add( cube );
+
+    camera.position.z = 5;
+
+    var render = function () {
+        requestAnimationFrame( render );
+
+        cube.rotation.x += 0.1;
+        cube.rotation.y += 0.1;
+
+        renderer.render(scene, camera);
+    };
+
+    render();
+
+    //-->
+</script>
+</body>
+
+</html>
