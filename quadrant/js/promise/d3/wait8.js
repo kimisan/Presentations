@@ -4,6 +4,8 @@
 module.exports =  function waitPromise8(param) {
     return new Promise(function(resolve, reject) {
 
+        console.log("wait8");
+
         function createTextCanvas(text, color, font, size) {
             size = size || 16;
             var canvas = document.createElement('canvas');
